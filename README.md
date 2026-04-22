@@ -1,34 +1,51 @@
-# Medical Insurance Cost Prediction
+🏥 Medical Insurance Cost Prediction
+This project develops a high-precision predictive model for individual medical insurance charges. By leveraging demographic and lifestyle data, we move from simple linear baselines to advanced ensemble methods, specifically addressing data imbalance and non-linear interactions.
 
-This project aims to accurately predict individual medical insurance charges based on demographic and lifestyle data. By exploring various regression techniques, the project identifies the key drivers of insurance costs and demonstrates the importance of modeling non-linear relationships in healthcare data.
+📊 Dataset Overview
+The analysis is performed on a dataset containing 1,338 original records with the following features:
 
-## 📊 Dataset Analysis
-The analysis is performed on a dataset containing 1,338 records with the following features:
-* **Demographics:** Age, Sex, Children (number of dependents), and Region.
-* **Lifestyle:** BMI (Body Mass Index) and Smoking Status.
-* **Target:** Charges (Individual medical costs billed by health insurance).
+Demographics: Age, Sex, Children, and Region.
 
-## 🚀 Key Features
-* **Exploratory Data Analysis (EDA):** Visualizing correlations, with a heavy focus on the impact of smoking and BMI on costs.
-* **Feature Engineering:** Implementation of `PolynomialFeatures` to capture complex interactions between variables.
-* **Model Comparison:** * **Linear Regression:** Established a baseline R² score (approx. 0.78).
-    * **Polynomial Regression:** Improved performance by modeling non-linear trends.
-    * **Random Forest Regressor:** Achieved the highest accuracy (approx. 0.847) through ensemble learning.
-* **Hyperparameter Tuning:** Utilized `GridSearchCV` and 5-fold Cross-Validation to optimize model performance and ensure generalizability.
+Health/Lifestyle: BMI (Body Mass Index) and Smoking Status.
 
-## 📈 Key Insights
-* **Non-Linearity:** The significant jump in accuracy from Linear to Random Forest models proves that interactions—specifically between BMI and Smoking status—are the primary drivers of insurance costs.
-* **Feature Importance:** Lifestyle (Smoking) and Age are the most influential variables, whereas Region and Sex show minimal impact on final charges.
+Target: charges (Continuous numerical value).
 
-## 🛠️ Tech Stack
-* **Language:** Python
-* **Data Handling:** Pandas, NumPy
-* **Visualization:** Seaborn, Matplotlib
-* **Machine Learning:** Scikit-learn
+🚀 Key Technical Milestones
+1. Data Re-balancing (SMOTE)
+Our EDA identified a significant minority of smokers (~20%). We implemented SMOTE (Synthetic Minority Over-sampling Technique) to balance the dataset to 2,128 records, ensuring the model accurately learns the "high-cost" smoking patterns without bias.
 
-## 📂 Repository Structure
-* `insurance.ipynb`: Complete Jupyter Notebook with data cleaning, EDA, and model training.
-* `insurance.csv`: (Optional: Add link to dataset or upload file).
+2. Feature Engineering & Pipelines
+Encoding: Full One-Hot Encoding for categorical variables.
 
-## 📝 Conclusion
-The project concludes that while linear models provide a solid baseline, ensemble methods like Random Forest are superior for healthcare cost prediction due to their ability to capture the synergistic effects of risk factors like high BMI combined with smoking.
+Polynomial Expansion: Generated interaction terms (e.g., Age×BMI) to capture non-linear compounding risks.
+
+Standardization: Applied StandardScaler within a Pipeline to prevent data leakage during cross-validation.
+
+3. Model Evolution
+We compared three distinct modeling approaches:
+
+Model	Strategy	R² Score
+Linear Regression	Baseline	0.82
+Polynomial Reg.	Capture Interactions	0.89
+Random Forest	Optimized Ensemble	0.925
+📈 Key Insights
+Synergistic Risks: The interaction between BMI and Smoking is the single largest driver of extreme insurance costs.
+
+Stability: Through 10-fold Cross-Validation and GridSearchCV, the Random Forest model demonstrated high stability, maintaining accuracy across different data subsets.
+
+Impact Drivers: Lifestyle (Smoking) and Age are high-impact variables, while geographical Region and Sex have minimal influence on final premiums.
+
+🛠️ Tech Stack
+Core: Python, Pandas, NumPy.
+
+Visualization: Seaborn, Matplotlib.
+
+ML Library: Scikit-learn, Imbalanced-learn (for SMOTE).
+
+📂 Repository Structure
+insurance.ipynb: Full research notebook including EDA, SMOTE implementation, and Hyperparameter tuning.
+
+insurance.csv: The raw dataset used for training and testing.
+
+📝 Final Conclusion
+The project concludes that while linear models provide a solid baseline, ensemble methods like Random Forest are superior for healthcare cost prediction. By specifically addressing class imbalance and feature interactions, we achieved a final R² score of 0.925, providing a robust tool for risk assessment.
